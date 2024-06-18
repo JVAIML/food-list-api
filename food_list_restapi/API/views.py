@@ -6,15 +6,15 @@ from .models import foodlist
 
 class food_list_view(APIView):
     def get(self,request):
-        allfood = foodlist.object.all().values()
+        allfood = foodlist.objects.all().values()
         return Response({"Message":"List of food","food list":allfood})
 
     def post(self,request):
-        foodlist.object.create(id=request.data["id"],
+        foodlist.objects.create(id=request.data["id"],
                                food_name=request.data["food_name"],
                                food_type=request.data["food_type"],
                                recipe_type=request.data["recipe_type"],
                                recipe=request.data["recipe"])
 
-        foodlist = foodlist.object.all().filter(id=request.data["id"]).values()
+        foodlist = foodlist.objects.all().filter(id=request.data["id"]).values()
         return Response({"Message":"New List of food","food list":foodlist})
